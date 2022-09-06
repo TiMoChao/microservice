@@ -17,7 +17,10 @@ require (
 	github.com/ru-rocker/gokit-playground v0.0.0-20171224044615-d5bb41590321 // indirect
 	github.com/stretchr/objx v0.1.1 // indirect
 	golang.org/x/exp v0.0.0-20200224162631-6cc2880d07d6 // indirect
-	golang.org/x/net v0.0.0-20211209124913-491a49abca63
-	google.golang.org/grpc v1.40.0
-	google.golang.org/protobuf v1.27.1
+	golang.org/x/net v0.0.0-20220826154423-83b083e8dc8b
+	golang.org/x/sys v0.0.0-20220829200755-d48e67d00261 // indirect
+	google.golang.org/genproto v0.0.0-20220902135211-223410557253 // indirect
+	google.golang.org/grpc v1.49.0
+	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.2.0 // indirect
+	google.golang.org/protobuf v1.28.1
 )
