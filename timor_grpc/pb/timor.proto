@@ -1,0 +1,19 @@
+syntax = "proto3";
+package pb;
+
+option go_package = "../pb";
+
+service Timor {
+  rpc Timor(TimorRequest) returns (TimorResponse) {}
+}
+
+message TimorRequest {
+  string requestType = 1;
+  int32 min = 2;
+  int32 max = 3;
+}
+
+message TimorResponse {
+  string message = 1;
+  string err = 2;
+}
