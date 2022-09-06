@@ -11,7 +11,7 @@ import (
 // Return new timor_grpc service
 func New(conn *grpc.ClientConn) timor_grpc.Service {
 	var timorEndpoint = grpctransport.NewClient(
-		conn, "Timor", "Timor",
+		conn, "pb.Timor", "Timor",
 		timor_grpc.EncodeGRPCTimorRequest,
 		timor_grpc.DecodeGRPCTimorResponse,
 		pb.TimorResponse{},
