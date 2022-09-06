@@ -1,8 +1,10 @@
-package timor_grpc
+package Transport
 
 import (
 	"context"
-	"microservice/timor_grpc/pb"
+	"microservice/go_kit_grpc_demo/server/Endpoint"
+	"microservice/go_kit_grpc_demo/server/Tool"
+	"microservice/go_kit_grpc_demo/server/pb"
 
 	grpctransport "github.com/go-kit/kit/transport/grpc"
 )
@@ -21,12 +23,12 @@ func (s *grpcServer) Timor(ctx context.Context, r *pb.TimorRequest) (*pb.TimorRe
 }
 
 // create new grpc server
-func NewGRPCServer(_ context.Context, endpoint Endpoints) pb.TimorServer {
+func NewGRPCServer(_ context.Context, endpoint Endpoint.Endpoints) pb.TimorServer {
 	return &grpcServer{
 		timor: grpctransport.NewServer(
 			endpoint.TimorEndpoint,
-			DecodeGRPCTimorRequest,
-			EncodeGRPCTimorResponse,
+			Tool.DecodeGRPCTimorRequest,
+			Tool.EncodeGRPCTimorResponse,
 		),
 	}
 }

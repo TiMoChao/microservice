@@ -9,7 +9,7 @@ import (
 
 	"microservice/timor_grpc"
 
-	grpcClient "microservice/timor_grpc/client"
+	grpcClient "microservice/go_kit_grpc_demo/client/Client"
 
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"

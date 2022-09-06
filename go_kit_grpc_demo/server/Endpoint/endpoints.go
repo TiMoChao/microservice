@@ -1,9 +1,10 @@
-package timor_grpc
+package Endpoint
 
 import (
 	"context"
 	"errors"
 	"github.com/go-kit/kit/endpoint"
+	"microservice/go_kit_grpc_demo/server/Server"
 )
 
 type TimorRequest struct {
@@ -18,7 +19,7 @@ type TimorResponse struct {
 }
 
 // 这里仍是传统的MakeXXXEndpoint函数
-func MakeTimorEndpoint(svc Service) endpoint.Endpoint {
+func MakeTimorEndpoint(svc Server.Service) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (interface{}, error) {
 		req := request.(TimorRequest)
 

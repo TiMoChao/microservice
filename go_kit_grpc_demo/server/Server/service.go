@@ -1,4 +1,4 @@
-package timor_grpc
+package Server
 
 import (
 	"context"

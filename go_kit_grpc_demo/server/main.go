@@ -3,13 +3,14 @@ package main
 import (
 	"flag"
 	"fmt"
+	"microservice/go_kit_grpc_demo/server/Endpoint"
+	"microservice/go_kit_grpc_demo/server/Server"
+	"microservice/go_kit_grpc_demo/server/Transport"
+	"microservice/go_kit_grpc_demo/server/pb"
 	"net"
 	"os"
 	"os/signal"
 	"syscall"
-
-	"microservice/timor_grpc"
-	"microservice/timor_grpc/pb"
 
 	context "golang.org/x/net/context"
 	"google.golang.org/grpc"
@@ -25,14 +26,14 @@ func main() {
 	ctx := context.Background()
 
 	// init timor service
-	var svc timor_grpc.Service
-	svc = timor_grpc.TimorService{}
+	var svc Server.Service
+	svc = Server.TimorService{}
 	errChan := make(chan error)
 
 	// creating Endpoints struct
 	// 译者注: 其实就是另一种形式的路由-控制器映射
-	endpoints := timor_grpc.Endpoints{
-		TimorEndpoint: timor_grpc.MakeTimorEndpoint(svc),
+	endpoints := Endpoint.Endpoints{
+		TimorEndpoint: Endpoint.MakeTimorEndpoint(svc),
 	}
 
 	go func() {
@@ -41,7 +42,7 @@ func main() {
 			errChan <- err
 			return
 		}
-		handler := timor_grpc.NewGRPCServer(ctx, endpoints)
+		handler := Transport.NewGRPCServer(ctx, endpoints)
 		gRPCServer := grpc.NewServer()
 		pb.RegisterTimorServer(gRPCServer, handler)
 		errChan <- gRPCServer.Serve(listener)
