@@ -4,12 +4,9 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"microservice/go_kit_grpc_demo/client/pb"
 	"strconv"
 	"time"
-
-	"microservice/timor_grpc"
-
-	grpcClient "microservice/go_kit_grpc_demo/client/Client"
 
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
@@ -30,7 +27,7 @@ func main() {
 	}
 	defer conn.Close()
 
-	timorService := grpcClient.New(conn)
+	timorService := pb.NewTimorClient(conn)
 	args := flag.Args()
 
 	var cmd string
@@ -45,7 +42,17 @@ func main() {
 		maxStr, args = pop(args)
 		min, _ := strconv.Atoi(minStr)
 		max, _ := strconv.Atoi(maxStr)
-		timor(ctx, timorService, requestType, min, max)
+
+		stringReq := &pb.TimorRequest{
+			RequestType: requestType,
+			Min:         int32(min),
+			Max:         int32(max),
+		}
+		reply, err := timorService.Timor(ctx, stringReq)
+		if err != nil {
+			log.Fatalln(err.Error())
+		}
+		fmt.Println(reply.Message)
 	default:
 		log.Fatalln("unknown command", cmd)
 	}
@@ -57,13 +64,4 @@ func pop(s []string) (string, []string) {
 		return "", s
 	}
 	return s[0], s[1:]
-}
-
-// call timor service
-func timor(ctx context.Context, service timor_grpc.Service, requestType string, min int, max int) {
-	mesg, err := service.Timor(ctx, requestType, min, max)
-	if err != nil {
-		log.Fatalln(err.Error())
-	}
-	fmt.Println(mesg)
 }

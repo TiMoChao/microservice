@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"os"
 	"strconv"
 	"time"
 
@@ -62,6 +63,8 @@ func pop(s []string) (string, []string) {
 // call timor service
 func timor(ctx context.Context, service timor_grpc.Service, requestType string, min int, max int) {
 	mesg, err := service.Timor(ctx, requestType, min, max)
+	fmt.Println(mesg)
+	os.Exit(1)
 	if err != nil {
 		log.Fatalln(err.Error())
 	}

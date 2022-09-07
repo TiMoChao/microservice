@@ -2,6 +2,7 @@ package Tool
 
 import (
 	"context"
+	"microservice/go_kit_grpc_demo/server/Endpoint"
 	"microservice/go_kit_grpc_demo/server/pb"
 )
 
@@ -16,7 +17,7 @@ func DecodeGRPCTimorRequest(ctx context.Context, r interface{}) (interface{}, er
 
 // Encode and Decode Timor Response
 func EncodeGRPCTimorResponse(_ context.Context, r interface{}) (interface{}, error) {
-	resp := r.(pb.TimorResponse)
+	resp := r.(Endpoint.TimorResponse)
 	return &pb.TimorResponse{
 		Message: resp.Message,
 		Err:     resp.Err,
